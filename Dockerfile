@@ -6,5 +6,5 @@ ADD . /hellodjango
 COPY requirements.txt /hellodjango/
 RUN pip install -r requirements.txt
 COPY . /hellodjango/
-EXPOSE 8000
+EXPOSE 5000
 #CMD [ "python", "./manage.py runserver 0.0.0.0:8000" ]
