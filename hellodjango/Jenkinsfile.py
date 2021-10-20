@@ -44,7 +44,7 @@ pipeline {
         stage('Docker Run') {
             steps{
                 script {
-                    dockerImage.run("-p 3000:3000 --rm --name pythonappContainer")
+                    dockerImage.run("-p 8000:8000 --rm --name pythonappContainer")
                 }
             }
         }
