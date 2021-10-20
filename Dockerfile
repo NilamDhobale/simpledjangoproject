@@ -1,9 +1,10 @@
-FROM django
 FROM python:3
-ADD . /hellodjango
-
+ENV PYTHONUNBUFFERED=1
+RUN mkdir /hellodjango
 WORKDIR /hellodjango
-
-#RUN pip install -r requirements.txt
-
-CMD [ "python", "./manage.py runserver 0.0.0.0:8000" ]
+ADD . /hellodjango
+COPY requirements.txt /hellodjango/
+RUN pip install -r requirements.txt
+COPY . /hellodjango/
+EXPOSE 3000
+#CMD [ "python", "./manage.py runserver 0.0.0.0:8000" ]
