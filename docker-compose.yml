@@ -1,9 +1,37 @@
-version: "3.9"
-services:
-  web:
-    build: .
-        command: python manage.py runserver 0.0.0.0:5000
-    volumes:
-      - .:/hellodjango
-    ports:
-      - "5000:5000"
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django-app
+  namespace: default
+  labels:
+    app: django-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-app
+  template:
+    metadata:
+      labels:
+        app: django-app
+    spec:
+      containers:
+      - name: django-app
+        image: "nilamdhobale/pythonapp:latest"
+        ports:
+          - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-app
+  namespace: default
+spec:
+  selector:
+    app: django-app
+  type: LoadBalancer
+  ports:
+  - name: http
+    targetPort: 3000
+    port: 80
